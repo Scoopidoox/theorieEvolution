@@ -96,16 +96,23 @@
       .video-thumbnail:hover {
         transform: scale(1.02);
       }
+      .video-thumbnail video,
+      .video-thumbnail iframe {
+        display: none !important;
+      }
+      .video-thumbnail.playing video,
+      .video-thumbnail.playing iframe {
+        display: block !important;
+      }
+      .video-thumbnail.playing .video-placeholder {
+        display: none !important;
+      }
 
       /* Utilities */
       .gradient-text {
         background: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-      }
-      .video-modal {
-        backdrop-filter: blur(10px);
-        background: rgba(0, 0, 0, 0.9);
       }
 
       @media (max-width: 768px) {
@@ -122,7 +129,6 @@
     </style>
   </head>
   <body>
-    <!-- Progress Bar -->
     <div class="fixed top-0 left-0 right-0 h-1 bg-white/10 z-50">
       <div
         class="h-full bg-gradient-to-r from-blue-500 via-green-500 to-purple-500 transition-all duration-300"
@@ -131,7 +137,6 @@
       ></div>
     </div>
 
-    <!-- Header -->
     <header class="py-24 px-4 text-center relative overflow-hidden">
       <div class="absolute inset-0 bg-blue-500/5 radial-gradient"></div>
       <div class="relative z-10">
@@ -150,14 +155,13 @@
       </div>
     </header>
 
-    <!-- Navigation -->
     <nav class="sticky top-0 z-40 bg-slate-900/80 backdrop-blur-md border-b border-white/10 mb-20">
       <div class="max-w-6xl mx-auto px-4 py-4 flex flex-wrap justify-center gap-2">
         <button
           onclick="scrollToSection('partie1')"
           class="px-4 py-2 rounded-full text-xs md:text-sm hover:bg-white/10 border border-transparent hover:border-blue-400 transition-all"
         >
-          1. Darwin & Wallace
+          1. Bataille du XIXᵉ
         </button>
         <button
           onclick="scrollToSection('partie2')"
@@ -180,11 +184,9 @@
       </div>
     </nav>
 
-    <!-- Timeline Content -->
     <div class="max-w-7xl mx-auto px-4 pb-32 relative timeline-container">
       <div class="timeline-line"></div>
 
-      <!-- PARTIE 1 : Darwin & Wallace -->
       <div id="partie1" class="timeline-item mb-32 relative">
         <div class="timeline-dot" style="top: 80px; border-color: #3b82f6"></div>
         <div class="grid md:grid-cols-2 gap-12 items-start">
@@ -193,29 +195,34 @@
               class="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-xs font-bold uppercase tracking-wider mb-4 inline-block"
               >Partie 1</span
             >
-            <h2 class="text-4xl font-bold mb-6 text-white">Darwin & Wallace</h2>
+            <h2 class="text-3xl font-bold mb-6 text-white">La première bataille du XIXᵉ siècle</h2>
 
-            <div class="space-y-6">
-              <div class="p-5 rounded-xl bg-blue-500/10 border border-blue-500/20">
-                <h3 class="text-xl font-semibold text-blue-300 mb-2">Charles Darwin</h3>
-                <p class="text-gray-300 text-sm leading-relaxed">
-                  Il introduit l'idée révolutionnaire que certains traits, bien qu'inutiles à la survie pure, augmentent
-                  les chances de reproduction (sélection sexuelle), expliquant des caractères apparemment "paradoxaux".
+            <div class="space-y-4">
+              <div class="p-4 rounded-xl bg-blue-500/10 border border-blue-500/20">
+                <h3 class="text-lg font-semibold text-blue-300 mb-1">Lamarck (1809)</h3>
+                <p class="text-gray-300 text-xs leading-relaxed">
+                  Première théorie moderne : les organismes évoluent selon le milieu. Caractères acquis, la fonction
+                  crée l'organe.
                 </p>
               </div>
-              <div class="p-5 rounded-xl bg-cyan-500/10 border border-cyan-500/20">
-                <h3 class="text-xl font-semibold text-cyan-300 mb-2">Alfred Russel Wallace</h3>
-                <p class="text-gray-300 text-sm leading-relaxed">
-                  Co-découvreur de la sélection naturelle. Il envoie sa théorie à Darwin en 1858, forçant une
-                  présentation commune. Darwin obtiendra la priorité historique grâce à la publication de
-                  <em>L'Origine des espèces</em>.
+              <div class="p-4 rounded-xl bg-cyan-500/10 border border-cyan-500/20">
+                <h3 class="text-lg font-semibold text-cyan-300 mb-1">Geoffroy Saint-Hilaire</h3>
+                <p class="text-gray-300 text-xs leading-relaxed">
+                  Défend le transformisme et l'idée d'unité du vivant.
+                </p>
+              </div>
+              <div class="p-4 rounded-xl bg-slate-500/10 border border-white/10">
+                <h3 class="text-lg font-semibold text-gray-400 mb-1">Cuvier</h3>
+                <p class="text-gray-300 text-xs leading-relaxed">
+                  Opposant principal : Catastrophisme et espèces fixes.
                 </p>
               </div>
             </div>
+            <p class="mt-4 text-sm font-medium text-blue-400">➡ Conclusion : un gros débat évolution vs fixisme.</p>
           </div>
           <div class="md:pt-12 order-2">
-            <div class="video-thumbnail group" onclick="openVideoModal('partie1')">
-              <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
+            <div class="video-thumbnail group" onclick="playVideo('partie1', event)">
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-4 video-placeholder">
                 <div
                   class="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"
                 >
@@ -225,21 +232,27 @@
                     />
                   </svg>
                 </div>
-                <p class="text-blue-300 font-medium">Voir la vidéo : Les Fondateurs</p>
+                <p class="text-blue-300 font-medium">Voir la vidéo : Le Débat</p>
               </div>
-              <video id="video-partie1" class="w-full h-full object-cover hidden" controls></video>
+              <video id="video-partie1" class="w-full h-full object-cover" controls></video>
+              <iframe
+                id="iframe-partie1"
+                class="w-full h-full"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- PARTIE 2 : Le manque & Mutationnisme -->
       <div id="partie2" class="timeline-item mb-32 relative">
         <div class="timeline-dot" style="top: 80px; border-color: #ef4444"></div>
         <div class="grid md:grid-cols-2 gap-12 items-start">
           <div class="md:pt-12 order-2 md:order-1">
-            <div class="video-thumbnail group" onclick="openVideoModal('partie2')">
-              <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
+            <div class="video-thumbnail group" onclick="playVideo('partie2', event)">
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-4 video-placeholder">
                 <div
                   class="w-16 h-16 rounded-full bg-red-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"
                 >
@@ -251,7 +264,14 @@
                 </div>
                 <p class="text-red-300 font-medium">Voir la vidéo : Le Chaînon Manquant</p>
               </div>
-              <video id="video-partie2" class="w-full h-full object-cover hidden" controls></video>
+              <video id="video-partie2" class="w-full h-full object-cover" controls></video>
+              <iframe
+                id="iframe-partie2"
+                class="w-full h-full"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
             </div>
           </div>
           <div class="content-card rounded-2xl p-8 max-w-xl order-1 md:order-2">
@@ -283,7 +303,6 @@
         </div>
       </div>
 
-      <!-- PARTIE 3 : Morgan & Réconciliation -->
       <div id="partie3" class="timeline-item mb-32 relative">
         <div class="timeline-dot" style="top: 80px; border-color: #10b981"></div>
         <div class="grid md:grid-cols-2 gap-12 items-start">
@@ -292,38 +311,49 @@
               class="px-3 py-1 bg-green-500/20 text-green-300 rounded-full text-xs font-bold uppercase tracking-wider mb-4 inline-block"
               >Partie 3</span
             >
-            <h2 class="text-4xl font-bold mb-6 text-white">La Réconciliation</h2>
+            <h2 class="text-3xl font-bold mb-6 text-white">Le Puzzle de l'Hérédité</h2>
 
-            <p class="text-gray-300 mb-6">
-              La solution est venue des travaux de <strong>Thomas Hunt Morgan</strong> et de sa célèbre "Fly Room". En
-              étudiant les drosophiles (mouches du vinaigre), il a unifié Darwin et Mendel.
-            </p>
-
-            <div class="space-y-4">
-              <div class="flex items-start gap-4 p-4 bg-green-500/10 rounded-lg">
-                <span class="text-2xl">🧬</span>
-                <div>
-                  <h4 class="font-bold text-green-300">Les gènes sont concrets</h4>
-                  <p class="text-sm text-gray-400">
-                    Il établit que les gènes sont portés par les chromosomes, donnant une base physique à l'hérédité.
-                  </p>
-                </div>
+            <div class="space-y-6">
+              <div class="p-4 rounded-xl bg-red-500/5 border border-red-500/20">
+                <h3 class="text-lg font-semibold text-red-300 mb-1">Le "Cauchemar" de Darwin</h3>
+                <p class="text-gray-300 text-xs leading-relaxed">
+                  Darwin ne comprenait pas la transmission physique. On croyait à l'<strong
+                    >hérédité par mélange</strong
+                  >
+                  (comme de la peinture) : au fil des générations, les traits géniaux se diluaient et disparaissaient.
+                </p>
               </div>
-              <div class="flex items-start gap-4 p-4 bg-green-500/10 rounded-lg">
-                <span class="text-2xl">⚡</span>
-                <div>
-                  <h4 class="font-bold text-green-300">Le rôle des mutations</h4>
-                  <p class="text-sm text-gray-400">
-                    Les mutations créent les variations (petites ou grandes), et la sélection naturelle agit ensuite sur
-                    ces variations.
-                  </p>
-                </div>
+
+              <div class="p-4 rounded-xl bg-orange-500/5 border border-orange-500/20">
+                <h3 class="text-lg font-semibold text-orange-300 mb-1">Hugo de Vries : La fausse piste</h3>
+                <p class="text-gray-300 text-xs leading-relaxed">
+                  Redécouverte de Mendel : l'hérédité se transmet par gènes. Mais De Vries pense que l'évolution ne se
+                  fait que par <strong>bonds brusques</strong> (mutations géantes), contredisant le gradualisme de
+                  Darwin.
+                </p>
+              </div>
+
+              <div class="p-4 rounded-xl bg-green-500/10 border border-green-500/20">
+                <h3 class="text-lg font-semibold text-green-300 mb-1">Morgan : La Réconciliation</h3>
+                <p class="text-gray-300 text-xs leading-relaxed">
+                  Grâce aux mouches <strong>Drosophiles</strong>, il prouve que les gènes sont sur les chromosomes et
+                  que des milliers de <strong>petites mutations</strong> sont le véritable carburant de la sélection
+                  naturelle.
+                </p>
               </div>
             </div>
+
+            <div class="mt-6 p-4 bg-white/5 rounded-lg border-l-4 border-green-500">
+              <p class="text-xs text-gray-300 font-medium italic">
+                "Le moteur : Sélection naturelle (Darwin) + Le carburant : Mutations (De Vries) + Le mode d'emploi :
+                Chromosomes (Morgan)."
+              </p>
+            </div>
           </div>
+
           <div class="md:pt-12 order-2">
-            <div class="video-thumbnail group" onclick="openVideoModal('partie3')">
-              <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
+            <div class="video-thumbnail group" onclick="playVideo('partie3', event)">
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-4 video-placeholder">
                 <div
                   class="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"
                 >
@@ -333,21 +363,27 @@
                     />
                   </svg>
                 </div>
-                <p class="text-green-300 font-medium">Voir la vidéo : La Fly Room</p>
+                <p class="text-green-300 font-medium">Voir la vidéo : La Fly Room & Morgan</p>
               </div>
-              <video id="video-partie3" class="w-full h-full object-cover hidden" controls></video>
+              <video id="video-partie3" class="w-full h-full object-cover" controls></video>
+              <iframe
+                id="iframe-partie3"
+                class="w-full h-full"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- PARTIE 4 : Néodarwinisme & Moderne -->
       <div id="partie4" class="timeline-item mb-32 relative">
         <div class="timeline-dot" style="top: 80px; border-color: #8b5cf6"></div>
         <div class="grid md:grid-cols-2 gap-12 items-start">
           <div class="md:pt-12 order-2 md:order-1">
-            <div class="video-thumbnail group" onclick="openVideoModal('partie4')">
-              <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
+            <div class="video-thumbnail group" onclick="playVideo('partie4', event)">
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-4 video-placeholder">
                 <div
                   class="w-16 h-16 rounded-full bg-purple-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"
                 >
@@ -359,7 +395,14 @@
                 </div>
                 <p class="text-purple-300 font-medium">Voir la vidéo : La Synthèse Moderne</p>
               </div>
-              <video id="video-partie4" class="w-full h-full object-cover hidden" controls></video>
+              <video id="video-partie4" class="w-full h-full object-cover" controls></video>
+              <iframe
+                id="iframe-partie4"
+                class="w-full h-full"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
             </div>
           </div>
           <div class="content-card rounded-2xl p-8 max-w-xl order-1 md:order-2">
@@ -401,7 +444,6 @@
         </div>
       </div>
 
-      <!-- CONCLUSION -->
       <div id="conclusion" class="timeline-item relative text-center max-w-4xl mx-auto">
         <div class="p-10 rounded-3xl bg-gradient-to-br from-slate-800 to-slate-900 border border-white/10 shadow-2xl">
           <span class="text-4xl mb-4 block">🌍</span>
@@ -416,47 +458,74 @@
       </div>
     </div>
 
-    <!-- Video Modal -->
-    <div id="videoModal" class="fixed inset-0 z-50 hidden video-modal items-center justify-center p-4">
-      <div class="absolute inset-0" onclick="closeVideoModal()"></div>
-      <div class="relative bg-slate-800 rounded-2xl p-8 max-w-2xl w-full border border-white/10 shadow-2xl">
-        <button onclick="closeVideoModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-        <h3 class="text-2xl font-bold text-white mb-6">Ajouter une vidéo</h3>
-        <div class="space-y-4">
-          <div>
-            <label class="block text-sm text-gray-400 mb-2">Fichier local</label>
-            <input
-              type="file"
-              accept="video/*"
-              id="videoFileInput"
-              class="w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-blue-600 file:text-white hover:file:bg-blue-700"
-            />
-          </div>
-          <div class="text-center text-gray-500">- OU -</div>
-          <div>
-            <label class="block text-sm text-gray-400 mb-2">URL directe (mp4, webm)</label>
-            <input
-              type="text"
-              id="videoUrlInput"
-              class="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white"
-              placeholder="https://..."
-            />
-          </div>
-          <button
-            onclick="addVideo()"
-            class="w-full py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg font-bold hover:opacity-90 transition"
-          >
-            Valider
-          </button>
-        </div>
-      </div>
-    </div>
-
     <script>
+      // ============================================
+      // CONFIGURATION DES VIDÉOS - Modifiez les URLs ici
+      // ============================================
+      const VIDEO_SOURCES = {
+        partie1: "https://youtu.be/0fTXVyOSC_w",
+        partie2: "LIEN_VIDEO_2",
+        partie3: "https://youtu.be/m3VSH3tNdMs", // Insérez votre lien ici
+        partie4: "https://www.youtube.com/watch?v=-wLbUNkOERY",
+      };
+
+      // Fonction pour détecter si c'est un lien YouTube
+      function isYouTubeUrl(url) {
+        return url.includes("youtube.com") || url.includes("youtu.be");
+      }
+
+      // Fonction pour convertir une URL YouTube en embed
+      function getYouTubeEmbedUrl(url) {
+        let videoId = "";
+        if (url.includes("youtube.com/watch?v=")) {
+          videoId = url.split("v=")[1].split("&")[0];
+        } else if (url.includes("youtu.be/")) {
+          videoId = url.split("youtu.be/")[1].split("?")[0];
+        } else if (url.includes("youtube.com/embed/")) {
+          return url;
+        }
+        return `https://www.youtube.com/embed/${videoId}`;
+      }
+
+      // Initialisation des vidéos au chargement de la page
+      window.addEventListener("DOMContentLoaded", () => {
+        Object.keys(VIDEO_SOURCES).forEach((section) => {
+          const videoSrc = VIDEO_SOURCES[section];
+          if (videoSrc) {
+            const video = document.getElementById(`video-${section}`);
+            const iframe = document.getElementById(`iframe-${section}`);
+
+            if (isYouTubeUrl(videoSrc)) {
+              iframe.src = getYouTubeEmbedUrl(videoSrc);
+              video.remove();
+            } else {
+              video.src = videoSrc;
+              iframe.remove();
+            }
+          }
+        });
+      });
+
+      // Fonction pour lancer la vidéo
+      function playVideo(section, event) {
+        const container = event.currentTarget;
+        const video = document.getElementById(`video-${section}`);
+        const iframe = document.getElementById(`iframe-${section}`);
+
+        // Vérifier si une vidéo est configurée
+        if ((!video || !video.src) && (!iframe || !iframe.src)) {
+          console.log(`Aucune vidéo configurée pour ${section}`);
+          return;
+        }
+
+        container.classList.add("playing");
+
+        // Lancer la vidéo si c'est une vidéo directe
+        if (video && video.src) {
+          video.play();
+        }
+      }
+
       // Timeline Animation
       const observer = new IntersectionObserver(
         (entries) => {
@@ -481,36 +550,6 @@
         const offset = 100;
         const pos = el.getBoundingClientRect().top + window.pageYOffset - offset;
         window.scrollTo({ top: pos, behavior: "smooth" });
-      }
-
-      // Video Logic
-      let currentSection = null;
-      function openVideoModal(id) {
-        currentSection = id;
-        document.getElementById("videoModal").classList.remove("hidden");
-        document.getElementById("videoModal").classList.add("flex");
-      }
-      function closeVideoModal() {
-        document.getElementById("videoModal").classList.add("hidden");
-        document.getElementById("videoModal").classList.remove("flex");
-        document.getElementById("videoFileInput").value = "";
-        document.getElementById("videoUrlInput").value = "";
-      }
-      function addVideo() {
-        const fileInput = document.getElementById("videoFileInput");
-        const urlInput = document.getElementById("videoUrlInput");
-        let src = null;
-
-        if (fileInput.files.length > 0) src = URL.createObjectURL(fileInput.files[0]);
-        else if (urlInput.value.trim()) src = urlInput.value.trim();
-
-        if (src && currentSection) {
-          const video = document.getElementById(`video-${currentSection}`);
-          video.src = src;
-          video.classList.remove("hidden");
-          video.parentElement.querySelector("div").classList.add("hidden"); // Hide placeholder content
-          closeVideoModal();
-        }
       }
     </script>
   </body>
